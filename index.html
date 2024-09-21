@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key_Logger</title>
+    <link rel="stylesheet" href="keylogger.css">
+</head>
+<body>
+    <div class="container">
+        <button>Key Logger</button>
+        <div class="keys"> 
+            <input type="button" id="start" value="Start Logging Keypress">
+            <input type="button" id="stop" value="Stop Logging Keypress">
+        </div>
+       <div class="display">
+        <div id="para1"></div>
+        <div id="para2"></div>
+       </div>
+       
+    </div>
+    <script>
+        const key1=document.getElementById('start');
+        const key2=document.getElementById('stop');
+        let count=1;
+        key2.style.opacity=0.4;
+        key2.style.cursor='none';
+        function check(count){
+            if(count==0){
+                key2.style.opacity=0.4;
+                key2.style.cursor='none';
+                key1.style.opacity=1;
+                key1.style.cursor='pointer';
+            }
+            if(count==1){
+                key1.style.opacity=0.4;
+                key1.style.cursor='none';
+                key2.style.opacity=1;
+                key2.style.cursor='pointer';
+            }
+        }
+        key1.addEventListener('click',function(event){
+            count=1;
+            check(count);
+            document.addEventListener('keydown',handledown);
+            document.addEventListener('keyup',handleup);
+
+        })
+        key2.addEventListener('click',function(event){
+            count=0;
+            check(count);
+            document.removeEventListener('keydown',handledown);
+            document.removeEventListener('keyup',handleup);
+            para1.textContent='';
+            para2.textContent='';
+            
+        })
+        function handledown(e){
+            para1.textContent=`Key ${e.key} pressed down`;
+            para2.textContent=`Key is pressed`;
+        }
+        function handleup(e){
+            para1.textContent=`Key ${e.key} pressed up`;
+            para2.textContent=`Key is released`;
+        }
+    </script>
+</body>
+</html>
